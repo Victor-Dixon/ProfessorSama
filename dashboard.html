@@ -1248,19 +1248,22 @@ async function handleAsk() {
   textDiv.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
 
   try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+    const res = await fetch("http://localhost:5000/ask", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        system: "You are a friendly, encouraging 7th-grade math tutor named MathMentor. When a student pastes a problem:\n1. Determine if it's correct or needs solving\n2. Show the correct step-by-step solution clearly and simply\n3. End with one similar practice problem\n\nKeep it under 180 words. Use simple language. Be encouraging. Use line breaks for readability. Never use markdown formatting — plain text only.",
-        messages: [{ role: "user", content: q }]
+        question: q
       })
     });
 
+    if (!res.ok) {
+      throw new Error("API request failed");
+    }
+
     const data = await res.json();
-    const answer = data.content?.[0]?.text || "I couldn't generate an answer. Please try again!";
+    const answer = data.explanation || "I couldn't generate an answer. Please try again!";
     typeText(textDiv, answer);
     showToast("✦ Got an answer!");
 
@@ -1269,7 +1272,7 @@ async function handleAsk() {
     renderActivity();
 
   } catch (e) {
-    textDiv.textContent = "⚠️ Couldn't connect. Make sure your API key is configured.";
+    textDiv.textContent = "Something went wrong. Try again.";
   }
 
   btn.disabled = false;

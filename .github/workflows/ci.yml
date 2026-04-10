@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r chris_tutor_bot/requirements.txt
+
+      - name: Compile Python files
+        run: python -m py_compile chris_tutor_bot/*.py chris_tutor_bot/cogs/*.py
+
+      - name: Run API tests
+        run: python -m unittest tests/test_api.py
+
+      - name: Verify Python LOC policy
+        run: |
+          python - <<'PY'
+          import glob
+          from pathlib import Path
+
+          max_loc = 400
+          py_files = glob.glob('chris_tutor_bot/**/*.py', recursive=True)
+          violations = []
+          for fp in py_files:
+              lines = Path(fp).read_text(encoding='utf-8').splitlines()
+              if len(lines) >= max_loc:
+                  violations.append((fp, len(lines)))
+
+          if violations:
+              raise SystemExit('LOC policy failed: ' + ', '.join(f"{f}={n}" for f, n in violations))
+
+          print('LOC policy passed for', len(py_files), 'files')
+          PY

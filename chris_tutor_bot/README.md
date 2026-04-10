@@ -55,17 +55,25 @@ ollama serve
 cp chris_tutor_bot/.env.example chris_tutor_bot/.env
 ```
 
-4. Run API:
+4. Run from repo root with the simplified launcher:
 
 ```bash
-python chris_tutor_bot/api.py
+python main.py api
 ```
 
 5. Run Discord bot:
 
 ```bash
-python chris_tutor_bot/bot.py
+python main.py bot
 ```
+
+6. Run mocked API tests:
+
+```bash
+python main.py test
+```
+
+> You can still run `python chris_tutor_bot/api.py` and `python chris_tutor_bot/bot.py` directly if preferred.
 
 ## API Endpoints
 

@@ -1,3 +1,5 @@
+"""API contract tests for the `/ask` endpoint (mocked tutor behavior)."""
+
 import unittest
 from unittest.mock import patch
 

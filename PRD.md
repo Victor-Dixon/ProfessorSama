@@ -1,5 +1,13 @@
 # Product Requirements Document (PRD)
 
+## Project Status Update (2026-04-10)
+- Documentation and file headers are being standardized for clearer maintenance handoffs.
+- SSOT boundaries remain unchanged:
+  - Tutor logic: `chris_tutor_bot/tutor.py`
+  - API behavior: `chris_tutor_bot/api.py`
+  - Dashboard ask flow: `dashboard.html`
+- Quality gate expectation remains: compile checks, mocked API tests, and Python LOC under 400 lines per file.
+
 ## Product
 MathMentor: a middle-school math tutoring product with two interfaces:
 1. Discord bot for rapid access.

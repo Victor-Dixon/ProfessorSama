@@ -23,3 +23,4 @@ For this phase, quality gates are appropriate for contract safety and regression
 ## Maintenance Update (2026-04-10)
 - Added/standardized professional file headers where missing to improve readability and handoff quality.
 - Revalidated mocked API behavior and Python LOC policy compliance after documentation/header updates.
+- Added a root-level launcher (`main.py`) to simplify how contributors run API, bot, and mocked tests.

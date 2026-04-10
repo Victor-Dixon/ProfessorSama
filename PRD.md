@@ -2,6 +2,7 @@
 
 ## Project Status Update (2026-04-10)
 - Documentation and file headers are being standardized for clearer maintenance handoffs.
+- Root launcher (`main.py`) now provides a simpler operator entry point for API, bot, and mocked API tests.
 - SSOT boundaries remain unchanged:
   - Tutor logic: `chris_tutor_bot/tutor.py`
   - API behavior: `chris_tutor_bot/api.py`
